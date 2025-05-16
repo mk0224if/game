@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>-Number Plate-</title>
+  </head>
+  <body style="text-align:center;">
+    <canvas style="background-color:#cef;" id="bg" width="800" height="600"></canvas>
+    <script>
+      let canvas = document.getElementById("bg");
+      let cnt = canvas.getContext("2d");
+          cnt.font = "36px monospace";
+          cnt.textAlign = "center";
+          cnt.textBaseline = "middle";
+      
+      let tapX = 0, tapY = 0, tapC = 0;
+      
+      if( 'ontouchend' in document ) {
+        canvas.addEventListener( "touchstart", touchStart );
+        canvas.addEventListener( "touchend", touchEnd );
+        function touchStart(event) {
+          event.preventDefault();
+          let rect = event.target.getBoundingClientRect();
+          tapX = Math.floor( event.touches[0].clientX-rect.left );
+          tapY = Math.floor( event.touches[0].clientY-rect.top );
+          tapC = 1;
+        }
+        function touchEnd(event) {
+          event.preventDefault();
+          tapC = 0;
+        }
+      }
+      else {
+        canvas.addEventListener( "mousedown", mouseDown );
+        canvas.addEventListener( "mouseup", mouseUp );
+        function mouseDown(event) {
+          let rect = event.target.getBoundingClientRect();
+          tapX = event.clientX-rect.left;
+          tapY = event.clientY-rect.top;
+          tapC = 1;
+        }
+        function mouseUp(event){
+      tapC = 0;
+      }
+      }
+      
+      function fText( str, x, y, col )
+        cnt.fillStyle = col;
+        cnt.fillText( str, x, y );
+      }
+      
+      function fRect( x, y, w, h, col ){
+        cnt.fillStyle = col;
+        cnt.fillRect( x, y, w, h );
+      }
+      
+59	//以下がメイン処理
+60	var idx = 0;
+61	var tmr = 0;
+62	
+63	window.onload = indexProc();
+64	function indexProc() {
+65	 tmr ++;
+66	 fRect( 0, 0, 800, 600, "#000" );
+67	 fText( "インデックス:"+idx, 200, 25, "#ff0" );
+68	 fText( "タイマー:"+tmr, 600, 25, "#0ff" );
+69	 fText( "tapX="+tapX+" tapY="+tapY+" tapC="+tapC, 400, 575, "#fff" );
+70	
+71	 switch( idx ) {
+72	  case 0:
+73	  fRect( 100, 100, 600, 200, "#cf8" );
+74	  fText( "タイトル画面", 400, 200, "#000" );
+75	  fText( "画面をタップしてスタート", 400, 400, "#fff" );
+76	  if( tapC == 1 ) { idx = 1; tmr = 0; tapC = 0; }
+77	  break;
+78	
+79	  case 1:
+80	  fText( "ゲーム画面", 400, 100, "#8f8" );
+81	  fRect( 100, 200, 200, 300, "#0ff" );
+82	  fText( "目標達成", 200, 350, "#000" );
+83	  fRect( 500, 200, 200, 300, "#ff0" );
+84	  fText( "失敗", 600, 350, "#000" );
+85	  if( tapC == 1 ) {
+86	  if( 100 <= tapX && tapX < 300 && 200 <= tapY && tapY < 500 ) { idx = 2; tmr = 0; }
+87	  if( 500 <= tapX && tapX < 700 && 200 <= tapY && tapY < 500 ) { idx = 3; tmr = 0; }
+88	  }
+89	  break;
+90	
+91	  case 2:
+92	  fRect( 400-tmr*3, 300-tmr, tmr*6, tmr*2, "#48f" );
+93	  fText( "ゲームクリア", 400, 300, "#000" );
+94	  if( tmr == 100 ) idx = 0;
+95	  break;
+96	
+97	  case 3:
+98	  fRect( 100+tmr*3, 200+tmr, 600-tmr*6, 200-tmr*2, "#f0c" );
+99	  fText( "ゲームオーバー", 400, 300, "#000" );
+100	  if( tmr == 100 ) idx = 0;
+101	  break;
+102	 }
+103	
+104	 setTimeout( indexProc, 100 );
+105	}
+106	</script>
+107	</body>
+108	</html>
