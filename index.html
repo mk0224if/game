@@ -58,48 +58,48 @@
       let tmr = 0;
       
       window.onload = indexProc();
-64	function indexProc() {
-65	 tmr ++;
-66	 fRect( 0, 0, 800, 600, "#000" );
-67	 fText( "インデックス:"+idx, 200, 25, "#ff0" );
-68	 fText( "タイマー:"+tmr, 600, 25, "#0ff" );
-69	 fText( "tapX="+tapX+" tapY="+tapY+" tapC="+tapC, 400, 575, "#fff" );
-70	
-71	 switch( idx ) {
-72	  case 0:
-73	  fRect( 100, 100, 600, 200, "#cf8" );
-74	  fText( "タイトル画面", 400, 200, "#000" );
-75	  fText( "画面をタップしてスタート", 400, 400, "#fff" );
-76	  if( tapC == 1 ) { idx = 1; tmr = 0; tapC = 0; }
-77	  break;
-78	
-79	  case 1:
-80	  fText( "ゲーム画面", 400, 100, "#8f8" );
-81	  fRect( 100, 200, 200, 300, "#0ff" );
-82	  fText( "目標達成", 200, 350, "#000" );
-83	  fRect( 500, 200, 200, 300, "#ff0" );
-84	  fText( "失敗", 600, 350, "#000" );
-85	  if( tapC == 1 ) {
-86	  if( 100 <= tapX && tapX < 300 && 200 <= tapY && tapY < 500 ) { idx = 2; tmr = 0; }
-87	  if( 500 <= tapX && tapX < 700 && 200 <= tapY && tapY < 500 ) { idx = 3; tmr = 0; }
-88	  }
-89	  break;
-90	
-91	  case 2:
-92	  fRect( 400-tmr*3, 300-tmr, tmr*6, tmr*2, "#48f" );
-93	  fText( "ゲームクリア", 400, 300, "#000" );
-94	  if( tmr == 100 ) idx = 0;
-95	  break;
-96	
-97	  case 3:
-98	  fRect( 100+tmr*3, 200+tmr, 600-tmr*6, 200-tmr*2, "#f0c" );
-99	  fText( "ゲームオーバー", 400, 300, "#000" );
-100	  if( tmr == 100 ) idx = 0;
-101	  break;
-102	 }
-103	
-104	 setTimeout( indexProc, 100 );
-105	}
-106	</script>
-107	</body>
-108	</html>
+      function indexProc() {
+        tmr ++;
+        fRect( 0, 0, 800, 600, "#000" );
+        fText( "インデックス:"+idx, 200, 25, "#ff0" );
+        fText( "タイマー:"+tmr, 600, 25, "#0ff" );
+        fText( "tapX="+tapX+" tapY="+tapY+" tapC="+tapC, 400, 575, "#fff" );
+
+        switch( idx ) {
+          case 0:
+            fRect( 100, 100, 600, 200, "#cf8" );
+            fText( "タイトル画面", 400, 200, "#000" );
+            fText( "画面をタップしてスタート", 400, 400, "#fff" );
+            if( tapC == 1 ) { idx = 1; tmr = 0; tapC = 0; }
+            break;
+
+          case 1:
+            fText( "ゲーム画面", 400, 100, "#8f8" );
+            fRect( 100, 200, 200, 300, "#0ff" );
+            fText( "目標達成", 200, 350, "#000" );
+            fRect( 500, 200, 200, 300, "#ff0" );
+            fText( "失敗", 600, 350, "#000" );
+            if( tapC == 1 ) {
+              if( 100 <= tapX && tapX < 300 && 200 <= tapY && tapY < 500 ) { idx = 2; tmr = 0; }
+              if( 500 <= tapX && tapX < 700 && 200 <= tapY && tapY < 500 ) { idx = 3; tmr = 0; }
+            }
+            break;
+            
+          case 2:
+            fRect( 400-tmr*3, 300-tmr, tmr*6, tmr*2, "#48f" );
+            fText( "ゲームクリア", 400, 300, "#000" );
+            if( tmr == 100 ) idx = 0;
+            break;
+            
+          case 3:
+            fRect( 100+tmr*3, 200+tmr, 600-tmr*6, 200-tmr*2, "#f0c" );
+            fText( "ゲームオーバー", 400, 300, "#000" );
+            if( tmr == 100 ) idx = 0;
+            break;
+        }
+        
+        setTimeout( indexProc, 100 );
+      }
+    </script>
+  </body>
+</html>
